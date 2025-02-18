@@ -7,7 +7,7 @@ from PIL import Image, ImageDraw, ImageFont
 TEMPLATE = "./template.jpg"
 FONT = "tintin.ttf"
 
-INAUGURATION = arrow.get("2024-10-05T12:00:00.000-04:00")
+INAUGURATION = arrow.get("2025-01-20T12:00:00.000-04:00")
 
 CAP_TEXT = "What a presidency, huh?"
 CAP_TEXT_POS = (52, 55)
@@ -84,7 +84,7 @@ def main():
                 fill=(0, 0, 0),
             )
 
-    template.show()
+    # template.show()
 
     template.save(IMAGE_DEST)
 
