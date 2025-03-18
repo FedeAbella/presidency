@@ -1,0 +1,12 @@
+services:
+  app:
+    build: .
+    container_name: captain_serve
+    restart: always
+    ports:
+      - 8888:8000
+    volumes:
+      - type: bind
+        source: ./static
+        target: /app/static
+        read_only: true

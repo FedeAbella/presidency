@@ -1,0 +1,21 @@
+import arrow
+
+TEMPLATE = "data/template.jpg"
+FONT = "data/tintin.ttf"
+
+INAUGURATION = arrow.get("2025-01-20T12:00:00.000-04:00")
+
+CAP_TEXT = "What a presidency, huh?"
+CAP_TEXT_POS = (52, 55)
+CAP_FONT_SIZE = 46
+
+TINTIN_TEXT_TEMPLATE = "Captain, it's been {time}"
+TINTIN_SINGLE_LINE_START_Y = 145
+TINTIN_MULTILINE_START_Y = 132
+TINTIN_LINE_HEIGHT = 22
+TINTIN_WRAP_WIDTH = 29
+TINTIN_START_X = 52
+TINTIN_INDENT = " "
+TINTIN_FONT_SIZE = 26
+
+IMAGE_DEST = "out/captain.jpg"

@@ -1,32 +1,19 @@
 import re
+import time
 from textwrap import wrap
 
 import arrow
+import schedule
 from PIL import Image, ImageDraw, ImageFont
 
-TEMPLATE = "./template.jpg"
-FONT = "tintin.ttf"
-
-INAUGURATION = arrow.get("2025-01-20T12:00:00.000-04:00")
-
-CAP_TEXT = "What a presidency, huh?"
-CAP_TEXT_POS = (52, 55)
-CAP_FONT_SIZE = 46
-
-TINTIN_TEXT_TEMPLATE = "Captain, it's been {time}"
-TINTIN_SINGLE_LINE_START_Y = 145
-TINTIN_MULTILINE_START_Y = 132
-TINTIN_LINE_HEIGHT = 22
-TINTIN_WRAP_WIDTH = 29
-TINTIN_START_X = 52
-TINTIN_INDENT = " "
-TINTIN_FONT_SIZE = 26
-
-IMAGE_DEST = "./src/static/captain.jpg"
+from constants import (CAP_FONT_SIZE, CAP_TEXT, CAP_TEXT_POS, FONT, IMAGE_DEST,
+                       INAUGURATION, TEMPLATE, TINTIN_FONT_SIZE, TINTIN_INDENT,
+                       TINTIN_LINE_HEIGHT, TINTIN_MULTILINE_START_Y,
+                       TINTIN_SINGLE_LINE_START_Y, TINTIN_START_X,
+                       TINTIN_TEXT_TEMPLATE, TINTIN_WRAP_WIDTH)
 
 
-def main():
-
+def get_time_text():
     timespan = INAUGURATION.humanize(
         arrow.now(),
         only_distance=True,
@@ -50,8 +37,10 @@ def main():
             f"{", ".join(usable_units[:-1])} and {usable_units[-1]}"
         )
 
-    tintin_text = TINTIN_TEXT_TEMPLATE.format(time=timespan_text)
+    return TINTIN_TEXT_TEMPLATE.format(time=timespan_text)
 
+
+def create_image(tintin_text):
     template = Image.open(TEMPLATE)
     draw = ImageDraw.Draw(template)
 
@@ -84,10 +73,15 @@ def main():
                 fill=(0, 0, 0),
             )
 
-    # template.show()
-
     template.save(IMAGE_DEST)
 
 
+def main():
+    create_image(get_time_text())
+
+
 if __name__ == "__main__":
-    main()
+    schedule.every().day.at("13:01").do(main)
+    while True:
+        schedule.run_pending()
+        time.sleep(1)

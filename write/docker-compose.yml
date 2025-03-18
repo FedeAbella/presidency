@@ -1,0 +1,11 @@
+services:
+  app:
+    build: .
+    container_name: captain_write
+    environment:
+      - TZ=America/Montevideo
+    restart: always
+    volumes:
+      - type: bind
+        source: ./out
+        target: /app/out
