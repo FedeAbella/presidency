@@ -4,16 +4,15 @@ from textwrap import wrap
 
 import arrow
 import schedule
-from PIL import Image, ImageDraw, ImageFont
-
 from constants import (CAP_FONT_SIZE, CAP_TEXT, CAP_TEXT_POS, FONT, IMAGE_DEST,
                        INAUGURATION, TEMPLATE, TINTIN_FONT_SIZE, TINTIN_INDENT,
                        TINTIN_LINE_HEIGHT, TINTIN_MULTILINE_START_Y,
                        TINTIN_SINGLE_LINE_START_Y, TINTIN_START_X,
                        TINTIN_TEXT_TEMPLATE, TINTIN_WRAP_WIDTH)
+from PIL import Image, ImageDraw, ImageFont
 
 
-def get_time_text():
+def get_time_text() -> str:
     timespan = INAUGURATION.humanize(
         arrow.now(),
         only_distance=True,
@@ -40,7 +39,7 @@ def get_time_text():
     return TINTIN_TEXT_TEMPLATE.format(time=timespan_text)
 
 
-def create_image(tintin_text):
+def create_image(tintin_text: str) -> None:
     template = Image.open(TEMPLATE)
     draw = ImageDraw.Draw(template)
 
@@ -76,7 +75,7 @@ def create_image(tintin_text):
     template.save(IMAGE_DEST)
 
 
-def main():
+def main() -> None:
     create_image(get_time_text())
 
 
