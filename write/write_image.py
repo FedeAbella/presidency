@@ -31,9 +31,11 @@ def get_time_text() -> str:
 
     if len(usable_units) == 1:
         timespan_text = usable_units[0]
+    elif len(usable_units) == 2:
+        timespan_text = f"{usable_units[0]} and {usable_units[1]}"
     else:
         timespan_text = (
-            f"{", ".join(usable_units[:-1])} and {usable_units[-1]}"
+            f"{", ".join(usable_units[:-1])}, and {usable_units[-1]}"
         )
 
     return TINTIN_TEXT_TEMPLATE.format(time=timespan_text)
